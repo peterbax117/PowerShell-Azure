@@ -2,12 +2,17 @@
 
 A collection of PowerShell scripts for automating common Azure management tasks.
 
+## Repository structure
+
+- runbooks/: production Azure Automation scripts
+- docs/: supplemental documentation and operational notes
+
 ## Scripts
 
-| Script | Purpose | Typical Run Context |
-|---|---|---|
-| Auto-Start-Stop-VMs.ps1 | Starts or stops Azure VMs based on tags and action (Start/Stop). | Azure Automation Runbook (Managed Identity) |
-| Azure-Arc-Automation-License-Assign.ps1 | Assigns ESU licenses for eligible Arc Windows Server 2012 machines and clears ESU profile for non-eligible connected machines. | Azure Automation Runbook (Managed Identity) |
+| Script | Path | Purpose | Typical Run Context |
+|---|---|---|---|
+| Auto-Start-Stop-VMs.ps1 | runbooks/Auto-Start-Stop-VMs.ps1 | Starts or stops Azure VMs based on tags and action (Start/Stop). | Azure Automation Runbook (Managed Identity) |
+| Azure-Arc-Automation-License-Assign.ps1 | runbooks/Azure-Arc-Automation-License-Assign.ps1 | Assigns ESU licenses for eligible Arc Windows Server 2012 machines and clears ESU profile for non-eligible connected machines. | Azure Automation Runbook (Managed Identity) |
 
 ## Auto-Start-Stop-VMs.ps1
 
@@ -30,13 +35,13 @@ Automatically starts or stops Azure Virtual Machines based on resource tags. Des
 
 ### Example usage
 
-`powershell
+```powershell
 # Stop all VMs tagged for shutdown at 7 PM
-.\Auto-Start-Stop-VMs.ps1 -Action "Stop" -TagName "AutoShutDownTime" -TagValue "1900"
+.\runbooks\Auto-Start-Stop-VMs.ps1 -Action "Stop" -TagName "AutoShutDownTime" -TagValue "1900"
 
 # Start all VMs tagged for startup at 7 AM
-.\Auto-Start-Stop-VMs.ps1 -Action "Start" -TagName "AutoStartTime" -TagValue "0700"
-`
+.\runbooks\Auto-Start-Stop-VMs.ps1 -Action "Start" -TagName "AutoStartTime" -TagValue "0700"
+```
 
 ## Azure-Arc-Automation-License-Assign.ps1
 
@@ -61,26 +66,16 @@ Manages Azure Arc ESU assignments using ARM REST APIs and system-assigned manage
 
 ### Example usage
 
-`powershell
+```powershell
 # Dry run first
-.\Azure-Arc-Automation-License-Assign.ps1 -WhatIf
+.\runbooks\Azure-Arc-Automation-License-Assign.ps1 -WhatIf
 
 # Run with explicit resource groups and subscription
-.\Azure-Arc-Automation-License-Assign.ps1 -ArcLicenseRG "ArcLicenses-RG" -ArcMachinesRg "ArcServers-RG" -SubscriptionId "00000000-0000-0000-0000-000000000000"
-`
+.\runbooks\Azure-Arc-Automation-License-Assign.ps1 -ArcLicenseRG "ArcLicenses-RG" -ArcMachinesRg "ArcServers-RG" -SubscriptionId "00000000-0000-0000-0000-000000000000"
+```
 
 ## Prerequisites
 
 - Azure Automation account with system-assigned managed identity.
 - Required Azure RBAC to read/update target resources.
 - Network access to https://management.azure.com/ from run context.
-
-## Suggested repo organization
-
-As this repo grows, consider this structure:
-
-- unbooks/ for production Automation scripts
-- scripts/ for ad-hoc utilities
-- docs/ for per-script operational notes and examples
-
-For now, keeping both scripts at the repo root is fine with this indexed README.
