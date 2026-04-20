@@ -74,6 +74,10 @@ Manages Azure Arc ESU assignments using ARM REST APIs and system-assigned manage
 .\runbooks\Azure-Arc-Automation-License-Assign.ps1 -ArcLicenseRG "ArcLicenses-RG" -ArcMachinesRg "ArcServers-RG" -SubscriptionId "00000000-0000-0000-0000-000000000000"
 ```
 
+### Credits
+
+Big thanks to [Sean Greenbaum](https://github.com/SeanGreenbaum) for the original idea and baseline implementation that this script is built on.
+
 ## Prerequisites
 
 - Azure Automation account with system-assigned managed identity.
