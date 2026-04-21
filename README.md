@@ -5,6 +5,7 @@ A collection of PowerShell scripts for automating common Azure management tasks.
 ## Repository structure
 
 - runbooks/: production Azure Automation scripts
+- scripts/: ad-hoc utility scripts for local use
 - docs/: supplemental documentation and operational notes
 
 ## Scripts
@@ -13,6 +14,7 @@ A collection of PowerShell scripts for automating common Azure management tasks.
 |---|---|---|---|
 | Auto-Start-Stop-VMs.ps1 | runbooks/Auto-Start-Stop-VMs.ps1 | Starts or stops Azure VMs based on tags and action (Start/Stop). | Azure Automation Runbook (Managed Identity) |
 | Azure-Arc-Automation-License-Assign.ps1 | runbooks/Azure-Arc-Automation-License-Assign.ps1 | Assigns ESU licenses for eligible Arc Windows Server 2012 machines and clears ESU profile for non-eligible connected machines. | Azure Automation Runbook (Managed Identity) |
+| Get-TenantID-From-SubscriptionID.ps1 | scripts/Get-TenantID-From-SubscriptionID.ps1 | Returns the Azure AD Tenant ID for a given Subscription ID without authentication. | Local PowerShell |
 
 ## Auto-Start-Stop-VMs.ps1
 
@@ -78,8 +80,28 @@ Manages Azure Arc ESU assignments using ARM REST APIs and system-assigned manage
 
 Big thanks to [Sean Greenbaum](https://github.com/SeanGreenbaum) for the original idea and baseline implementation that this script is built on.
 
+## Get-TenantID-From-SubscriptionID.ps1
+
+Returns the Azure AD Tenant ID for one or more Azure Subscription IDs by inspecting the WWW-Authenticate header returned by an unauthenticated call to the ARM endpoint. No credentials or Az module required.
+
+### Key parameters
+
+| Parameter | Required | Description |
+|---|---|---|
+| SubscriptionId | Yes | One or more Azure Subscription IDs (GUID). Accepts pipeline input. |
+
+### Example usage
+
+```powershell
+# Single subscription
+.\scripts\Get-TenantID-From-SubscriptionID.ps1 -SubscriptionId '00000000-0000-0000-0000-000000000000'
+
+# Multiple subscriptions via pipeline
+'sub1-guid','sub2-guid' | .\scripts\Get-TenantID-From-SubscriptionID.ps1
+```
+
 ## Prerequisites
 
-- Azure Automation account with system-assigned managed identity.
+- Azure Automation account with system-assigned managed identity (for runbooks).
 - Required Azure RBAC to read/update target resources.
 - Network access to https://management.azure.com/ from run context.
