@@ -15,6 +15,7 @@ A collection of PowerShell scripts for automating common Azure management tasks.
 | Auto-Start-Stop-VMs.ps1 | runbooks/Auto-Start-Stop-VMs.ps1 | Starts or stops Azure VMs based on tags and action (Start/Stop). | Azure Automation Runbook (Managed Identity) |
 | Azure-Arc-Automation-License-Assign.ps1 | runbooks/Azure-Arc-Automation-License-Assign.ps1 | Assigns ESU licenses for eligible Arc Windows Server 2012 machines and clears ESU profile for non-eligible connected machines. | Azure Automation Runbook (Managed Identity) |
 | Get-TenantID-From-SubscriptionID.ps1 | scripts/Get-TenantID-From-SubscriptionID.ps1 | Returns the Azure AD Tenant ID for a given Subscription ID without authentication. | Local PowerShell |
+| New-DemoStorageAccount.ps1 | scripts/New-DemoStorageAccount.ps1 | Creates a Storage Account with secure defaults, assigns RBAC to the signed-in principal, and uploads sample blob data. | Local PowerShell (Az module) |
 
 ## Auto-Start-Stop-VMs.ps1
 
@@ -98,6 +99,35 @@ Returns the Azure AD Tenant ID for one or more Azure Subscription IDs by inspect
 
 # Multiple subscriptions via pipeline
 'sub1-guid','sub2-guid' | .\scripts\Get-TenantID-From-SubscriptionID.ps1
+```
+
+## New-DemoStorageAccount.ps1
+
+Creates an Azure Storage Account with secure defaults (TLS 1.2, HTTPS only, public blob access disabled), assigns the `Storage Blob Data Contributor` role to the signed-in principal at the storage account scope, and uploads a configurable number of sample files using AAD-based data plane access. Supports `-WhatIf` and `-Confirm`.
+
+### Key parameters
+
+| Parameter | Required | Description |
+|---|---|---|
+| SubscriptionId | No | Azure Subscription ID. Defaults to current Az context. |
+| ResourceGroupName | No | Resource group to create or reuse. |
+| Location | No | Azure region (default: centralus). |
+| StorageAccountName | No | 3-24 lowercase alphanumeric. Generated if omitted. |
+| ContainerName | No | Blob container name (default: sample-data). |
+| FileCount | No | Number of sample files (default: 10). |
+| FileSizeKB | No | Approximate file size in KB (default: 4). |
+
+### Example usage
+
+```powershell
+# Defaults
+.\scripts\New-DemoStorageAccount.ps1
+
+# Specific RG and region with verbose output
+.\scripts\New-DemoStorageAccount.ps1 -ResourceGroupName "rg-demo" -Location "eastus2" -FileCount 25 -Verbose
+
+# Preview only
+.\scripts\New-DemoStorageAccount.ps1 -WhatIf
 ```
 
 ## Prerequisites
