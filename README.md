@@ -6,9 +6,9 @@ A collection of PowerShell scripts for automating common Azure management tasks.
 
 - `runbooks/`: production Azure Automation scripts
 - `scripts/`: ad-hoc utility scripts for local use
-- `Azure/`: Azure resource management scripts (VMs, disks, galleries, costs, Key Vault)
-- `Security/`: security and compliance scripts (TLS auditing, file scanning)
-- `Utilities/`: general-purpose helper modules and scripts
+- `azure/`: Azure resource management scripts (VMs, disks, galleries, costs, Key Vault)
+- `security/`: security and compliance scripts (TLS auditing, file scanning)
+- `utilities/`: general-purpose helper modules and scripts
 - `docs/`: supplemental documentation and operational notes
 
 ## Scripts
@@ -19,15 +19,15 @@ A collection of PowerShell scripts for automating common Azure management tasks.
 | Azure-Arc-Automation-License-Assign.ps1 | runbooks/Azure-Arc-Automation-License-Assign.ps1 | Assigns ESU licenses for eligible Arc Windows Server 2012 machines and clears ESU profile for non-eligible connected machines. | Azure Automation Runbook (Managed Identity) |
 | Get-TenantID-From-SubscriptionID.ps1 | scripts/Get-TenantID-From-SubscriptionID.ps1 | Returns the Azure AD Tenant ID for a given Subscription ID without authentication. | Local PowerShell |
 | New-DemoStorageAccount.ps1 | scripts/New-DemoStorageAccount.ps1 | Creates a Storage Account with secure defaults, assigns RBAC to the signed-in principal, and uploads sample blob data. | Local PowerShell (Az module) |
-| Create-VM-Disk-From-Gallery-Image.ps1 | Azure/Create-VM-Disk-From-Gallery-Image.ps1 | Creates a Managed Disk from the latest (or specified) image version in an Azure Compute Gallery, optionally across subscriptions. | Local PowerShell (Az module) |
-| Export-AzureComputeGalleryImageVersion.ps1 | Azure/Export-AzureComputeGalleryImageVersion.ps1 | Exports an Image Version from an Azure Compute Gallery as a local VHD file. | Local PowerShell (Az module) |
-| Import-AzureComputeGalleryImageVersion.ps1 | Azure/Import-AzureComputeGalleryImageVersion.ps1 | Imports a VHD into an Azure Compute Gallery as a new Image Version. | Local PowerShell (Az module) |
-| Report-KeyVault-Azure.ps1 | Azure/Report-KeyVault-Azure.ps1 | Reports on all Key Vaults across accessible subscriptions including secret counts and nearest expiry. | Local PowerShell (Az module) |
-| Get-Costs.ps1 | Azure/Get-Costs.ps1 | Reports Azure resource usage and costs for a subscription via the Consumption REST API. | Local PowerShell (Az module) |
-| Get-TLS-Settings.ps1 | Security/Get-TLS-Settings.ps1 | Audits TLS/SCHANNEL and .NET cryptography registry settings across one or more remote Windows servers. | Local PowerShell (WinRM to targets) |
-| Scan-Zip-Files.ps1 | Security/Scan-Zip-Files.ps1 | Moves ZIP files through a secure scan pipeline: source → staging → Windows Defender scan → archive. | Local PowerShell / Scheduled Task |
-| Logging_Functions.psm1 | Utilities/Logging_Functions.psm1 | Reusable logging module that writes to a structured log file. Import into other scripts. | PowerShell Module (Import-Module) |
-| Resolve-DNS-Loop.ps1 | Utilities/Resolve-DNS-Loop.ps1 | Continuously resolves DNS names against specific nameservers with timestamped output and optional CSV export. | Local PowerShell |
+| Create-VM-Disk-From-Gallery-Image.ps1 | azure/Create-VM-Disk-From-Gallery-Image.ps1 | Creates a Managed Disk from the latest (or specified) image version in an Azure Compute Gallery, optionally across subscriptions. | Local PowerShell (Az module) |
+| Export-AzureComputeGalleryImageVersion.ps1 | azure/Export-AzureComputeGalleryImageVersion.ps1 | Exports an Image Version from an Azure Compute Gallery as a local VHD file. | Local PowerShell (Az module) |
+| Import-AzureComputeGalleryImageVersion.ps1 | azure/Import-AzureComputeGalleryImageVersion.ps1 | Imports a VHD into an Azure Compute Gallery as a new Image Version. | Local PowerShell (Az module) |
+| Report-KeyVault-Azure.ps1 | azure/Report-KeyVault-Azure.ps1 | Reports on all Key Vaults across accessible subscriptions including secret counts and nearest expiry. | Local PowerShell (Az module) |
+| Get-Costs.ps1 | azure/Get-Costs.ps1 | Reports Azure resource usage and costs for a subscription via the Consumption REST API. | Local PowerShell (Az module) |
+| Get-TLS-Settings.ps1 | security/Get-TLS-Settings.ps1 | Audits TLS/SCHANNEL and .NET cryptography registry settings across one or more remote Windows servers. | Local PowerShell (WinRM to targets) |
+| Scan-Zip-Files.ps1 | security/Scan-Zip-Files.ps1 | Moves ZIP files through a secure scan pipeline: source → staging → Windows Defender scan → archive. | Local PowerShell / Scheduled Task |
+| Logging_Functions.psm1 | utilities/Logging_Functions.psm1 | Reusable logging module that writes to a structured log file. Import into other scripts. | PowerShell Module (Import-Module) |
+| Resolve-DNS-Loop.ps1 | utilities/Resolve-DNS-Loop.ps1 | Continuously resolves DNS names against specific nameservers with timestamped output and optional CSV export. | Local PowerShell |
 
 ---
 
