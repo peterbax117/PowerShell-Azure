@@ -22,7 +22,7 @@
 
 .NOTES
     Version:    2.1
-    Author:     Pete Baxter (pete.baxter@microsoft.com)
+    Author:     Pete Baxter
     Updated:    2026-04-20 — pipeline + array support; cross-edition header parsing
                              (PS 5.1 / 7.x); robust authorization_uri regex;
                              pipeline-friendly object output.
